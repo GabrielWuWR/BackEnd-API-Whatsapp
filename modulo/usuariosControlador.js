@@ -53,12 +53,12 @@ function retornarDadosUsuario(numero) {
     let dados = retornarTodosUsuarios();
 
     dados.usuarios.forEach((usuario) => {
-        if(numeroPesquisa == usuario.numero) {
+        if (numeroPesquisa == usuario.numero) {
             resposta.usuario.push(usuario);
         }
     });
 
-    if(resposta.usuario.length > 0) {
+    if (resposta.usuario.length > 0) {
         return resposta;
     } else {
         return ERRO_MENSAGEM;
@@ -67,6 +67,22 @@ function retornarDadosUsuario(numero) {
 
 function retornarDadosContato(numero, nomeContato) {
     let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel', contato: [] };
-    let numeroPesquisa = numero;
+    let dados = retornarDadosUsuario(numero);
     let contatoPesquisa = nomeContato;
+
+    dados.usuario[0].contatos.forEach((contato) => {
+        if(contatoPesquisa == contato.nome) {
+            resposta.contato.push(
+                {
+                    nome: contato.nome,
+                    descricao: contato.descricao,
+                    imagem: contato.imagem
+                }
+            )
+        }
+    });
+
+    console.log(resposta)
 }
+
+retornarDadosContato('11987876567', "Jane Smith");
