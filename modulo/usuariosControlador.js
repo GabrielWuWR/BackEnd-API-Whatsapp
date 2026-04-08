@@ -6,6 +6,7 @@
  *************************************************************************************/
 
 const dados = require('./contatos.js');
+const ERRO_MENSAGEM = { status: false, status_code: 404, desenvolvedor: 'Gabriel' };
 
 function retornarTodosUsuarios() {
     let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel', usuarios: [] };
@@ -38,6 +39,34 @@ function retornarTodosUsuarios() {
             }
         );
     });
+
+    if (resposta.usuarios.length > 0) {
+        return resposta;
+    } else {
+        return ERRO_MENSAGEM;
+    }
 };
 
-retornarTodosUsuarios();
+function retornarDadosUsuario(numero) {
+    let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel', usuario: [] };
+    let numeroPesquisa = numero;
+    let dados = retornarTodosUsuarios();
+
+    dados.usuarios.forEach((usuario) => {
+        if(numeroPesquisa == usuario.numero) {
+            resposta.usuario.push(usuario);
+        }
+    });
+
+    if(resposta.usuario.length > 0) {
+        return resposta;
+    } else {
+        return ERRO_MENSAGEM;
+    }
+}
+
+function retornarDadosContato(numero, nomeContato) {
+    let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel', contato: [] };
+    let numeroPesquisa = numero;
+    let contatoPesquisa = nomeContato;
+}
