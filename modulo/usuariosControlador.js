@@ -47,42 +47,94 @@ function retornarTodosUsuarios() {
     }
 };
 
+//console.dir(retornarTodosUsuarios(), { depth: null});
+
 function retornarDadosUsuario(numero) {
-    let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel', usuario: [] };
+    let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel' };
     let numeroPesquisa = numero;
     let dados = retornarTodosUsuarios();
 
-    dados.usuarios.forEach((usuario) => {
-        if (numeroPesquisa == usuario.numero) {
-            resposta.usuario.push(usuario);
-        }
-    });
+    if (dados.status == true) {
+        dados.usuarios.forEach((usuario) => {
+            if (numeroPesquisa == usuario.numero) {
+                resposta.usuario = usuario;
+            }
+        });
+    }
 
-    if (resposta.usuario.length > 0) {
+    if (dados.status == true && resposta.usuario !== undefined) {
         return resposta;
     } else {
         return ERRO_MENSAGEM;
     }
-}
+};
+
+//console.dir(retornarDadosUsuario('11966578996'), { depth: null});
 
 function retornarDadosContato(numero, nomeContato) {
-    let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel', contato: [] };
+    let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel', contato: {} };
     let dados = retornarDadosUsuario(numero);
-    let contatoPesquisa = nomeContato;
+    let contatoCorrigido = nomeContato.toLowerCase();
 
-    dados.usuario[0].contatos.forEach((contato) => {
-        if(contatoPesquisa == contato.nome) {
-            resposta.contato.push(
-                {
-                    nome: contato.nome,
-                    descricao: contato.descricao,
-                    imagem: contato.imagem
-                }
-            )
-        }
-    });
+    if (dados.status == true) {
+        dados.usuario.contatos.forEach((contato) => {
+            if (contatoCorrigido == contato.nome.toLowerCase()) {
+                resposta.contato.nome = contato.nome;
+                resposta.contato.descricao = contato.descricao;
+                resposta.contato.imagem = contato.imagem;
+            };
+        });
+    }
 
-    console.log(resposta)
-}
+    if (dados.status == true && JSON.stringify(resposta.contato) != '{}') {
+        return resposta;
+    } else {
+        return ERRO_MENSAGEM;
+    }
+};
 
-retornarDadosContato('11987876567', "Jane Smith");
+//console.dir(retornarDadosContato('11955577796', 'Peter Wilsen'), { depth: null});
+
+function retornarConversasUsuario(numero) {
+    let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel', conversas: [] };
+    let dados = retornarDadosUsuario(numero);
+
+    if (dados.status == true) {
+        dados.usuario.contatos.forEach((contato) => {
+            contato.mensagens.forEach((mensagem) => {
+                resposta.conversas.push(mensagem);
+            });
+        });
+    };
+
+    if (dados.status == true && resposta.conversas.length > 0) {
+        return resposta;
+    } else {
+        return ERRO_MENSAGEM;
+    };
+};
+
+//console.log(retornarConversasUsuario('11966578996'))
+
+function retornarConversaContato(numero, contatoNome) {
+    let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel' };
+    let dados = retornarDadosUsuario(numero);
+
+    if (dados.status == true) {
+        dados.usuario.contatos.forEach((contato) => {
+            if (contatoNome.toLowerCase() == contato.nome.toLowerCase()) {
+                resposta.contato = contato;
+            };
+        });
+    }
+
+
+    if(dados.status == true && resposta.contato !== undefined) {
+        return resposta;
+    } else {
+        return ERRO_MENSAGEM;
+    }
+    
+};
+
+//console.log(retornarConversaContato('11966578996', 'José Maria da Silva'));
