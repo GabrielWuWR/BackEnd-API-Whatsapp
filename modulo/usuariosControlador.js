@@ -129,12 +129,34 @@ function retornarConversaContato(numero, contatoNome) {
     }
 
 
-    if(dados.status == true && resposta.contato !== undefined) {
+    if (dados.status == true && resposta.contato !== undefined) {
         return resposta;
     } else {
         return ERRO_MENSAGEM;
-    }
-    
+    };
 };
 
 //console.log(retornarConversaContato('11966578996', 'José Maria da Silva'));
+
+function pesquisaConversaContato(numero, contato, palavra) {
+    let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel', mensagens: [] };
+    let dados = retornarConversaContato(numero, contato);
+
+    if (dados.status == true) {
+        dados.contato.mensagens.forEach((mensagem) => {
+            let mensagemMinuscula = mensagem.conteudo.toLowerCase();
+
+            if (mensagemMinuscula.includes(palavra.toLowerCase())) {
+                resposta.mensagens.push(mensagem);
+            };
+        });
+    };
+
+    if (resposta.mensagens.length > 0 && dados.status == true && palavra != '') {
+        return resposta;
+    } else {
+        return ERRO_MENSAGEM;
+    };
+};
+
+//console.log(pesquisaConversaContato('11966578996', 'José Maria da Silva', 'hello'));
