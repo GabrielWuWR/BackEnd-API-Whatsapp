@@ -67,6 +67,7 @@ app.get('/v1/whatsapp/dados/usuario/:numero/conversa', function (request, respon
     response.json(conversa);
 });
 
+//Rota para buscar uma conversa do usuário com um contato filtrando por uma palavra chave
 app.get('/v1/whatsapp/dados/usuario/:numero/conversa/busca', function (request, response) {
     let numero = request.params.numero;
     let contato = request.query.contato;
@@ -75,6 +76,13 @@ app.get('/v1/whatsapp/dados/usuario/:numero/conversa/busca', function (request, 
 
     response.status(conversa.status_code);
     response.json(conversa);
+});
+
+app.get('/v1/whatsapp/ajuda', function (request, response) {
+    let documentacao = usuariosControlador.documentacaoAPI();
+
+    response.status(documentacao.status_code);
+    response.json(documentacao);
 });
 
 app.listen(porta, function () {
