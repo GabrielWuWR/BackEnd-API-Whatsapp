@@ -8,6 +8,7 @@
 const dados = require('./contatos.js');
 const ERRO_MENSAGEM = { status: false, status_code: 404, desenvolvedor: 'Gabriel' };
 
+//Função para listar todos os usuarios da aplicação
 function retornarTodosUsuarios() {
     let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel', usuarios: [] };
 
@@ -49,6 +50,7 @@ function retornarTodosUsuarios() {
 
 //console.dir(retornarTodosUsuarios(), { depth: null});
 
+//Função para listar apenas um usuario buscando pelo número
 function retornarDadosUsuario(numero) {
     let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel' };
     let numeroPesquisa = numero;
@@ -71,30 +73,33 @@ function retornarDadosUsuario(numero) {
 
 //console.dir(retornarDadosUsuario('11966578996'), { depth: null});
 
-function retornarDadosContato(numero, nomeContato) {
-    let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel', contato: {} };
+//Função para listar uma lista dos contatos de um usuario
+function retornarDadosContato(numero) {
+    let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel', contato: [] };
     let dados = retornarDadosUsuario(numero);
-    let contatoCorrigido = nomeContato.toLowerCase();
 
     if (dados.status == true) {
         dados.usuario.contatos.forEach((contato) => {
-            if (contatoCorrigido == contato.nome.toLowerCase()) {
-                resposta.contato.nome = contato.nome;
-                resposta.contato.descricao = contato.descricao;
-                resposta.contato.imagem = contato.imagem;
-            };
+            resposta.contato.push(
+                {
+                    nome: contato.nome,
+                    descricao: contato.descricao,
+                    imagem: contato.imagem
+                }
+            );
         });
-    }
+    };
 
-    if (dados.status == true && JSON.stringify(resposta.contato) != '{}') {
+    if (dados.status == true && resposta.contato.length > 0) {
         return resposta;
     } else {
         return ERRO_MENSAGEM;
     }
 };
 
-//console.dir(retornarDadosContato('11955577796', 'Peter Wilsen'), { depth: null});
+//console.dir(retornarDadosContato('11955577796', 'Ana Maria'), { depth: null});
 
+//Função para listar todas as conversas de um usuario
 function retornarConversasUsuario(numero) {
     let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel', conversas: [] };
     let dados = retornarDadosUsuario(numero);
@@ -116,6 +121,7 @@ function retornarConversasUsuario(numero) {
 
 //console.log(retornarConversasUsuario('11966578996'))
 
+//Função para listar todas as conversas entre um usuario e um contato expecifico
 function retornarConversaContato(numero, contatoNome) {
     let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel' };
     let dados = retornarDadosUsuario(numero);
@@ -138,6 +144,7 @@ function retornarConversaContato(numero, contatoNome) {
 
 //console.log(retornarConversaContato('11966578996', 'José Maria da Silva'));
 
+//Função para pesquisar por uma conversa através de uma palavra chave
 function pesquisaConversaContato(numero, contato, palavra) {
     let resposta = { status: true, status_code: 200, desenvolvedor: 'Gabriel', mensagens: [] };
     let dados = retornarConversaContato(numero, contato);
@@ -160,3 +167,12 @@ function pesquisaConversaContato(numero, contato, palavra) {
 };
 
 //console.log(pesquisaConversaContato('11966578996', 'José Maria da Silva', 'hello'));
+
+module.exports = {
+    retornarTodosUsuarios,
+    retornarDadosUsuario,
+    retornarDadosContato,
+    retornarConversasUsuario,
+    retornarConversaContato,
+    pesquisaConversaContato
+};
