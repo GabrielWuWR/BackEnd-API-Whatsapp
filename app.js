@@ -1,5 +1,5 @@
 /**************************************************************************************
- * Objetivo: Deenvolver as principais rotas usadas na aplicação
+ * Objetivo: Desenvolver as principais rotas usadas na aplicação
  * Autor: Gabriel José
  * Data: 08/04/2026
  * Versão: 1.0.8.4
@@ -78,6 +78,7 @@ app.get('/v1/whatsapp/dados/usuario/:numero/conversa/busca', function (request, 
     response.json(conversa);
 });
 
+//Rota para obter as informações das principais rotas
 app.get('/v1/whatsapp/ajuda', function (request, response) {
     let documentacao = usuariosControlador.documentacaoAPI();
 

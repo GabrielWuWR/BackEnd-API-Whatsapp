@@ -1,5 +1,5 @@
 /**************************************************************************************
- * Objetivo: Deenvolver as principais funções relacionadas aos usuarios
+ * Objetivo: Desenvolver as principais funções relacionadas aos usuarios
  * Autor: Gabriel José
  * Data: 08/04/2026
  * Versão: 1.0.8.4
@@ -175,13 +175,17 @@ function documentacaoAPI() {
         'desenvolvedor': 'Gabriel José',
         'status': true,
         'status_code': 200,
+        'rotasBase': {
+            'local': 'localhost://8080',
+            'render': 'https://backend-api-whatsapp-ajie.onrender.com'
+        },
         'rotas': [
-            {'rota1': '/v1/whatsapp/usuarios', 'descricao': 'Rota para listar todos os usuarios da aplicação.'},
-            {'rota2': '/v1/whatsapp/dados/usuario/:numero', 'descricao': 'Rota para listar os dados de um usuario filtrando pelo número.'},
-            {'rota3': '/v1/whatsapp/dados/usuario/:numero/contatos', 'descricao': 'Rota para listar os contatos de um usuário.'},
-            {'rota4': '/v1/whatsapp/dados/usuario/:numero/mensagens', 'descricao': 'Rota para listar todas as mensagens trocadas na conta de um usuário.'},
-            {'rota5': '/v1/whatsapp/dados/usuario/:numero/conversa', 'descricao': 'Rota para listar a conversa entre um usuário e um contato expecifico.'},
-            {'rota6': '/v1/whatsapp/dados/usuario/:numero/conversa/busca', 'descricao': 'Rota para buscar uma conversa do usuário com um contato filtrando por uma palavra chave.'},
+            { 'rota1': '/v1/whatsapp/usuarios', 'descricao': 'Rota para listar todos os usuarios da aplicação.' },
+            { 'rota2': '/v1/whatsapp/dados/usuario/:numero', 'descricao': 'Rota para listar os dados de um usuario filtrando pelo número.' },
+            { 'rota3': '/v1/whatsapp/dados/usuario/:numero/contatos', 'descricao': 'Rota para listar os contatos de um usuário.' },
+            { 'rota4': '/v1/whatsapp/dados/usuario/:numero/mensagens', 'descricao': 'Rota para listar todas as mensagens trocadas na conta de um usuário.' },
+            { 'rota5': '/v1/whatsapp/dados/usuario/:numero/conversa?contato=NOME CONTATO', 'descricao': 'Rota para listar a conversa entre um usuário e um contato expecifico.' },
+            { 'rota6': '/v1/whatsapp/dados/usuario/:numero/conversa/busca?contato=NOME CONTATO&palavra=PALAVRA', 'descricao': 'Rota para buscar uma conversa do usuário com um contato filtrando por uma palavra chave.' },
         ]
     };
 
